@@ -1,4 +1,4 @@
-# ahod_PLC_IOX
+# All Hands on Deck - AHOD IOx
 AHOD - All Hands on Deck!, is demonstration of running an application
 via Cisco's IOx framework to notify appropriate users of issues occuring
 on the plant floor.
@@ -13,9 +13,10 @@ communicate with a Rockwell Automation Logix based controller and
 restful API calls to send information to the
 [Web Service Application](https://github.com/imapex/ahod_webapp).
 
-________
-**IOx**
-________
+# Background
+
+## IOx
+
 
 The value of the Internet of Things (IOT) is less about the "things" and
  is more about enabling digital transformation. This can mean enabling new data
@@ -42,9 +43,8 @@ platform.
 **Note to run IOx on the IE-4000 will need to be running an IOS revision
 which supports it. At the time of this project 15.2.5(E1) was the first
 released version which supports IOx.
-_______
-**IOx Tools**
-_______
+
+## IOx Tools
 
 The IE-4000 currently only supports running LXC container style applications.
 
@@ -57,9 +57,8 @@ These can be found at
 [IOx Downloads](https://developer.cisco.com/media/iox-dev-guide-7-12-16/getstarted/downloads/)
 .
 
-_______
-**Open Source Applications and libraries leveraged in this application**
-_______
+
+## Open Source Applications and Libraries
 [pycomm](https://github.com/ruscito/pycomm) is a python package with a collection
 of modules to communicate to PLCs and we have leveraged in our application to
 read tag values from a Rockwell Automation Logix based controller.
