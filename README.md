@@ -14,7 +14,11 @@ restful API calls to send information to the
 [Web Service Application](https://github.com/imapex/ahod_webapp).
 
 ### Table of Contents
-[Background](#Background)
+* [Background](#Background)
+* [Getting Started](#Getting-Started)
+* [Building the IOx LXC Package](#Building-the-IOx-LXC-package)
+* [Deploying to the IE 4000](#Deploying-to-the-IE-4000)
+* [Verification and Troubleshooting](#Verification-and-Troubleshooting)
 
 # Background
 
@@ -69,6 +73,23 @@ read tag values from a Rockwell Automation Logix based controller.
 [urllib](https://docs.python.org/2/library/urllib.html) is a python
 module for http interactions. We are using this to POST the alerts
 to the Web Service Application.
+
+# Getting Started
+**Prepping the environment**
+
+This is where I'll say how to get started
+
+# Building the IOx LXC package
+
+This is where I'll say how to run make and what it does
+
+# Deploying to the IE 4000
+
+This is where I'll say how to install, activate and start the app
+
+# Verification and Troubleshooting
+
+This is where I'll say how to verify it's working and possible troubleshooting options
 
 
 
