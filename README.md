@@ -18,6 +18,7 @@ restful API calls to send information to the
 * [Getting Started](#Getting-Started)
 * [Downloading from GitHub](#Downloading)
 * [Explanation of files in repo](#ExplanationFiles)
+* [Modify Python Application / Prepare for your install](#ModifyPython)
 * [Building the IOx LXC Package](#Building-the-IOx-LXC-package)
 * [Deploying to the IE 4000](#Deploying-to-the-IE-4000)
 * [Verification and Troubleshooting](#Verification-and-Troubleshooting)
@@ -204,17 +205,24 @@ tag goes to 1 ( True ).
 More information on the structure can be found at
 [Native Application Anatomy](https://developer.cisco.com/media/iox-dev-guide-6-23-16/native/native-application-anatomy/)
 
-
-
-# <a name="Building-the-IOx-LXC-package"></a>Building the IOx LXC package
+# <a name="ModifyPython"></a>Modify Python Application / Prepare for your install
 
 Currently the information for the application is hardcoded into the python script.
-The first step would be to edit `AHODCLX.py` to have the correct information.
-The most important variables are `plcip` and `tag1`. plcip tells the system the ip of the PLC to read from and tag1 is the tag name to read.
+This will require `AHODCLX.py` to be edited for your specific installation.
+
+The most important variables are `plcip`, `tag1`, and `weburl`.
+
+plcip tells the system the ip of the PLC to read from
+
+tag1 is the tag name to read.
 
 *Note the tag construct is a memory pointer in the Logix family of PLCs. This is how data points are referenced.
 
-Once you are done with any edits, you are ready to build.
+weburl is the address of your Web Service Application. 
+
+
+# <a name="Building-the-IOx-LXC-package"></a>Building the IOx LXC package
+Once the application has been customized for our installation, we are ready to build.
 
 `cd /opt/ioxsdk/demo-apps/ahod_PLC_IOX`
 
@@ -224,7 +232,10 @@ This will take time. There are a lot of components to build ( it's building a fu
 
 *NOTE this will require your Ubuntu server to have internet access.
 
-When it's complete the last output should be ``
+The last few outputs should be "Creating the application package".
+
+ The last line will be **Done**
+
 
 
 
@@ -282,20 +293,55 @@ ie: `switch(config-iox)#    host ip default gateway 192.168.1.1`
 
 Once the switch has been configured, and the package has been created, the last step is to deploy.
 
+##### ioxclient profiles
+
 First we need to configure a profile for ioxclient to talk to the iox instance on the IE-4000.
 `ioxclient profiles create` will start a guided profile creation.
 
-To verify profile is accurate and Ubuntu can reach your IE-4000 type `ioxclient application list`.
+Your IOx platform's IP address is IP configured under IOX in IE switch setup.
 
-At this time you haven't deployed anything so will be blank, but should still see a response. If receive timeout, verify reachability and have correct information.
+Your IOx platform's port number is 8443
+
+Authorized user is username configured on switch for access ( Level 15 ).
+
+Password for user will be the usernames given in last steps password.
+
+Leave Local Repository and URL scheme and API prefix set to defaults.
+
+Set ssh port to 22.
 
 
+To verify profile was created and activated run the command `ioxclient profiles list`.
+
+
+##### ioxclient application
+
+We are now ready to install the application on the IE-4000.
+The application tar will be in the `out` folder that was created by **make**.
+
+`cd /opt/ioxsdk/demo-apps/ahod_PLC_IOX/out`
+
+`ioxclient application install AHOD ahod_PLC_IOX_ie4k-lxc.tar`
+
+*Note using application name of AHOD in install command. This can be whatever you want but will use AHOD in further examples.
+
+Once the install is complete `ioxclient application list` should show the application as installed.
+
+We will then need to activate the application with `ioxclient application activate AHOD`
+
+Once activated `ioxclient application list` should show the application activated.
+
+Last we need to start the application
+
+`ioxclient application start AHOD`
+
+Once again `ioxclient application list` can be used to verify it worked and should show it as started.
 
 
 
 # <a name="Verification-and-Troubleshooting"></a>Verification and Troubleshooting
 
-This is where I'll say how to verify it's working and possible troubleshooting options
+To verify the application has been installed,
 
 
 
