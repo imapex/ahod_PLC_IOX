@@ -20,7 +20,7 @@ restful API calls to send information to the
 * [Deploying to the IE 4000](#Deploying-to-the-IE-4000)
 * [Verification and Troubleshooting](#Verification-and-Troubleshooting)
 
-# Background
+# <a name="Background"></a>Background
 
 ## IOx
 
@@ -74,20 +74,20 @@ read tag values from a Rockwell Automation Logix based controller.
 module for http interactions. We are using this to POST the alerts
 to the Web Service Application.
 
-# Getting Started
+# <a name="Getting-Started"></a>Getting Started
 **Prepping the environment**
 
 This is where I'll say how to get started
 
-# Building the IOx LXC package
+# <a name="Building-the-IOx-LXC-package"></a>Building the IOx LXC package
 
 This is where I'll say how to run make and what it does
 
-# Deploying to the IE 4000
+# <a name="Deploying-to-the-IE-4000"></a>Deploying to the IE 4000
 
 This is where I'll say how to install, activate and start the app
 
-# Verification and Troubleshooting
+# <a name="Verification-and-Troubleshooting"></a>Verification and Troubleshooting
 
 This is where I'll say how to verify it's working and possible troubleshooting options
 
