@@ -218,7 +218,7 @@ tag1 is the tag name to read.
 
 *Note the tag construct is a memory pointer in the Logix family of PLCs. This is how data points are referenced.
 
-weburl is the address of your Web Service Application. 
+weburl is the address of your Web Service Application.
 
 
 # <a name="Building-the-IOx-LXC-package"></a>Building the IOx LXC package
@@ -341,7 +341,17 @@ Once again `ioxclient application list` can be used to verify it worked and shou
 
 # <a name="Verification-and-Troubleshooting"></a>Verification and Troubleshooting
 
-To verify the application has been installed,
+To verify the application has been installed, you can access the linux image running on the IE-4000 with the command
+
+`ioxclient application console AHOD`
+
+The username if prompted will be ` root`.
+
+Since the python script is running silent you won't see it at the terminal.
+
+
+`ps` will show running processes and you should see /usr/bin/AHODCLX.py running ( or a python process ).
+There will also be an AHODLOG.txt located in the root directory ( `cd /` )
 
 
 
