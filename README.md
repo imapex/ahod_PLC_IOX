@@ -1,4 +1,4 @@
-# All Hands on Deck - AHOD IOx
+# All Hands on Deck! - AHOD IOx
 AHOD - All Hands on Deck!, is demonstration of running an application
 via Cisco's IOx framework to notify appropriate users of issues occuring
 on the plant floor.
@@ -12,6 +12,9 @@ Industrial routers and switches, leveraging open source libraries to
 communicate with a Rockwell Automation Logix based controller and
 restful API calls to send information to the
 [Web Service Application](https://github.com/imapex/ahod_webapp).
+
+### Table of Contents
+[Background](#Background)
 
 # Background
 
