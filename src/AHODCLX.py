@@ -41,17 +41,17 @@ def var_init():
 			if firstword == 'weburl':
 				weburl = lastword
 			elif firstword == 'switchname':
-				switchname = lastword
+				switchname = str(lastword)
 			elif firstword == 'switchip':
 				switchip = lastword
 			elif firstword == 'plcip':
 				plcip = lastword
 			elif firstword == 'plclocation':
-				plclocation = lastword
+				plclocation = str(lastword)
 			elif firstword == 'plcname':
-				plcname = lastword
+				plcname = str(lastword)
 			elif firstword == 'tag1':
-				tag1 = lastword
+				tag1 = str(lastword)
 			else:
 				print "invalid argument given - " + firstword
 				mylog.write("invalid argument given " + firstword + '\n')
