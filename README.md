@@ -18,7 +18,7 @@ restful API calls to send information to the
 * [Getting Started](#Getting-Started)
 * [Downloading from GitHub](#Downloading)
 * [Explanation of files in repo](#ExplanationFiles)
-* [Modify Python Application / Prepare for your install](#ModifyPython)
+* [Modify Configuration for your demo / Prepare for your install](#ModifyPython)
 * [Building the IOx LXC Package](#Building-the-IOx-LXC-package)
 * [Deploying to the IE 4000](#Deploying-to-the-IE-4000)
 * [Verification and Troubleshooting](#Verification-and-Troubleshooting)
@@ -170,7 +170,7 @@ This will create a folder `ahod_PLC_IOX` with all the necessary files in the cor
 # <a name="ExplanationFiles"></a>Explanation of Files
 
 Directly inside `ahod_PLC_IOX` there will be 3 files and the `src` directory.
-Inside `src` there will be 4 files.
+Inside `src` there will be 5 files.
 
 ###### ahod_PLC_IOX
 1. LICENSE ( MIT License of this application )
@@ -179,6 +179,7 @@ Inside `src` there will be 4 files.
 
 ###### ahod_PLC_IOX/src
 5. AHODCLX.py
+6. AHODCLX.conf
 6. AHODBASH.sh
 7. app-lxc.yaml
 8. iox-project-lxc.conf
@@ -188,13 +189,15 @@ The Makefile is what tells the **make** process how create and build the package
 * Identify the type of package to be built - ie4k in this case.
 * download the zipped source files for pycomm and urllib and unzip
 * install them into the linux kernel
-* move `src/AHODCLX.py` into the `/usr/bin` inside the image
+* move `src/AHODCLX.py` and `src/AHODCLX.conf` into the `/usr/bin` inside the image
 * move `src/AHODBASH.sh` to `/etc/init.d` so that is can autostart on boot
 and call on the python program.
 * create appropriate symbolic links to `/etc/r_.d` (where _ is 0 - halt,1 - start and 5 - restart)
 
 `AHODCLX.py` as stated is the python application that will call on pycomm to read from the PLC and alert if the
 tag goes to 1 ( True ).
+
+`AHODCLX.conf` is the file for setting parameters of how the program will run. If file is not found the code will run with my defaults.
 
 `AHODBASH.sh` is the bash script to start, stop and restart AHODCLX.py ( Silent at terminal )
 
@@ -205,10 +208,11 @@ tag goes to 1 ( True ).
 More information on the structure can be found at
 [Native Application Anatomy](https://developer.cisco.com/media/iox-dev-guide-6-23-16/native/native-application-anatomy/)
 
-# <a name="ModifyPython"></a>Modify Python Application / Prepare for your install
+# <a name="ModifyPython"></a>Modify Configuration File/ Prepare for your install
 
-Currently the information for the application is hardcoded into the python script.
-This will require `AHODCLX.py` to be edited for your specific installation.
+Currently the information for the application is read in through the `AHODCLX.conf` file.
+
+This will require editing for your specific installation.
 
 The most important variables are `plcip`, `tag1`, and `weburl`.
 
@@ -219,6 +223,9 @@ tag1 is the tag name to read.
 *Note the tag construct is a memory pointer in the Logix family of PLCs. This is how data points are referenced.
 
 weburl is the address of your Web Service Application.
+
+If the `AHODCLX.conf` file is not found, the python code will fallback
+ to my defaults. If you wish to change the defaults you could edit the python code itself.
 
 
 # <a name="Building-the-IOx-LXC-package"></a>Building the IOx LXC package
