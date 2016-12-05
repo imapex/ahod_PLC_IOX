@@ -199,7 +199,8 @@ tag goes to 1 ( True ).
 
 `AHODCLX.conf` is the file for setting parameters of how the program will run. If file is not found the code will run with my defaults.
 
-`AHODBASH.sh` is the bash script to start, stop and restart AHODCLX.py ( Silent at terminal )
+`AHODBASH.sh` is the bash script to start, stop and restart AHODCLX.py ( Silent at terminal ) This file should have rights to execute. If you
+issue an `ls -la` in the src folder this file should have an X. If it doesn't issue a CHMOD 755 first.
 
 `app-lxc.yaml` is a definition of the resources for the LXC container that's created and installed on the switch.
 
@@ -360,6 +361,8 @@ Since the python script is running silent you won't see it at the terminal.
 `ps` will show running processes and you should see /usr/bin/AHODCLX.py running ( or a python process ).
 There will also be an AHODLOG.txt located in the /usr/bin directory which will log any errors.
 
+If the python file is not running, verify the permissions of the AHODBASH.sh, you may see an error about
+S50AHODBASH if permissions are not correct. Issue a chmod 755 on your Ubuntu image for AHODBASH.sh and rerun the make.
 
 
 
