@@ -1,4 +1,7 @@
 # Import pycomm which is python application for reading / writing to Rockwell Controllers
+# Import urllib to POST to Web Service Application
+# Import time to timestamp transactions
+# Imoprt os, sys for file and directory operations
 
 from pycomm.ab_comm.clx import Driver as ClxDriver
 import logging
@@ -6,6 +9,9 @@ import urllib
 import datetime
 from time import sleep
 import os, sys
+
+
+# Define Variables and their defaults. If no AHODCLX.conf exists, these are the values the program will execute with
 
 InAlarm = 0
 weburl = "http://imapex-ahod-ahod-server.green.browndogtech.com/ahod"
@@ -17,6 +23,9 @@ plcname = 'demo1'
 tag1 = 'MachineStop'
 cwd = ''
 mylog = ''
+
+# Function to check for AHODCLX.conf, read it in and assign to appropriate variables.
+# Also establishes AHODLOG.txt for storing output / errors
 
 def var_init():
 	global weburl, switchname, switchip, plcip, plclocation, plcname, cwd, mylog, tag1
@@ -68,6 +77,8 @@ def var_init():
 		mylog.write('\n' + "No Configuration File Found, using defaults" + '\n')
 
 
+# Function to send alerts to Web Service Application
+# Will attempt to send, if fails ( unable to find in DNS or connectivity down ) it will write to log and continue.
 
 def SendAlert(tagname, value):
     print "ALARM - SENDING AHOD MESSAGE"
@@ -88,6 +99,8 @@ def SendAlert(tagname, value):
 	mylog.write(e + '/n')
 	mylog.flush()
 
+# Main function
+
 if __name__ == '__main__':
 	runloop = 1
 	var_init()
@@ -98,14 +111,20 @@ if __name__ == '__main__':
 	mylog.write(str(c.__version__) + '\n')
 	print c.__version__
 	mylog.flush()
+    # attempt to open connection to PLC
 	if c.open(plcip):
 		while runloop == 1:
 			try:
+                        # Read value of tag. Only using a single tag currently, future enhancements to enable multiple
                 		myMachineStop = str(c.read_tag(tag1))
+
+                        # Data is returned as comma seperated and in paranthesis. Removing formatting to isolate just values
                 		myMachineStop = myMachineStop.replace("(", "")
                 		myMachineStop = myMachineStop.replace(")", "")
                 		myMachineStop = myMachineStop.split(', ')
-               			#print "Current Value is ", myMachineStop[0], " and the data type is ", myMachineStop[1]
+
+               			# if the tag was already in alarm, then don't want to send continuous alarms ( For this demo )
+                        # Check if already in alarm, if not, put into alarm and call on SendAlert to send to Web Application
                 		if int(myMachineStop[0]) == 0 and InAlarm == 1:
                     			InAlarm = 0
                     			mylog.write("Current Value is " + str(myMachineStop[0]) + " and the data type is " + str(myMachineStop[1]) + '\n')
@@ -115,6 +134,7 @@ if __name__ == '__main__':
                     			InAlarm = 1
                     			mylog.write("Current Value is " + str(myMachineStop[0]) + " and the data type is " + str(myMachineStop[1]) + '\n')
                     			SendAlert(tag1, myMachineStop[0])
+                        # Continues to loop as long as program is running. Current value is to sleep for 1 second. May need to adjust based on PLC load
                 		sleep(1)
 			except Exception as e:
                 		c.close()
