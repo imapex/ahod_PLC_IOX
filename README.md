@@ -358,7 +358,9 @@ Since the python script is running silent you won't see it at the terminal.
 
 
 `ps` will show running processes and you should see /usr/bin/AHODCLX.py running ( or a python process ).
-There will also be an AHODLOG.txt located in the root directory ( `cd /` )
+There will also be an AHODLOG.txt located in the /usr/bin directory which will log any errors.
+
+
 
 
 
