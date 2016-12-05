@@ -27,26 +27,27 @@ def var_init():
 		conffile = open(cwd + "/AHODCLX.conf", 'r')
 		for line in conffile:
 			firstword = line.split(' ')[0]
-			lastword = line.split(' ')[2]
+			lastword = line.split(' ')[2].rstrip()
 
 			if firstword == 'weburl':
-				weburl = lastword
+				weburl = str(lastword)
 			elif firstword == 'switchname':
-				switchname = lastword
+				switchname = str(lastword)
 			elif firstword == 'switchip':
 				switchip = lastword
 			elif firstword == 'plcip':
 				plcip = lastword
 			elif firstword == 'plclocation':
-				plclocation = lastword
+				plclocation = str(lastword)
 			elif firstword == 'plcname':
-				plcname = lastword
+				plcname = str(lastword)
 			elif firstword == 'tag1':
-				tag1 = lastword
+				tag1 = str(lastword)
 			else:
 				print "invalid argument given - " + firstword
 				mylog.write("invalid argument given " + firstword + '\n')
 		conffile.close()
+		print "Starting with settings of:"
 		print "weburl = " + weburl
 		print "switchname = " + switchname
 		print "switchip = " + switchip
@@ -91,12 +92,13 @@ def SendAlert(tagname, value):
 if __name__ == '__main__':
 	runloop = 1
 	var_init()
-	('Session information from ' + str(datetime.datetime.now()) + '\n')
+	mylog.write('Session information from ' + str(datetime.datetime.now()) + '\n')
 	c = ClxDriver()
 	mylog.write(str(c['port']) + '\n')
 	print c['port']
 	mylog.write(str(c.__version__) + '\n')
 	print c.__version__
+	print tag1
 	mylog.flush()
 	if c.open(plcip):
 		while runloop == 1:
