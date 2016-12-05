@@ -48,6 +48,7 @@ PYPY_MIRROR ?=
 
 # The python application included in this project
 PYTHON_APP = src/AHODCLX.py
+PYTHON_CONF = src/AHODCLX.conf
 
 # The startup bash script for python app
 BASHSCRIPT = src/AHODBASH.sh
@@ -113,6 +114,7 @@ UPDATE_ROOTFS=\
 	cp $(PYTHON_APP) $(ROOTFS_STAGING_DIR)/usr/bin/; \
 	cp -ua $(MODULES_DIR)/* $(ROOTFS_STAGING_DIR); \
 	cp $(BASHSCRIPT) $(ROOTFS_STAGING_DIR)/etc/init.d; \
+	cp $(PYTHON_CONF) $(ROOTFS_STAGING_DIR)/usr/bin/; \
 	fakeroot; \
 	ln -s ../init.d/AHODBASH.sh $(ROOTFS_STAGING_DIR)/etc/rc0.d/S50AHODBASH; \
 	ln -s ../init.d/AHODBASH.sh $(ROOTFS_STAGING_DIR)/etc/rc1.d/S50AHODBASH; \
@@ -121,12 +123,6 @@ UPDATE_ROOTFS=\
 	ln -s ../init.d/AHODBASH.sh $(ROOTFS_STAGING_DIR)/etc/rc4.d/S50AHODBASH; \
 	ln -s ../init.d/AHODBASH.sh $(ROOTFS_STAGING_DIR)/etc/rc5.d/S50AHODBASH; \
 	ln -s ../init.d/AHODBASH.sh $(ROOTFS_STAGING_DIR)/etc/rc6.d/S50AHODBASH; \
-	echo "export switchname=MFG_IE4K_8GT8GP4GE_A" >> $(ROOTFS_STAGING_DIR)/etc/profile; \
-	echo "weburl=http://imapex-ahod-ahod-server.green.browndogtech.com/ahod" >> $(ROOTFS_STAGING_DIR)/etc/profile; \
-    echo "switchip=192.168.90.3" >> $(ROOTFS_STAGING_DIR)/etc/profile; \
-    echo "plcip=192.168.1.5" >> $(ROOTFS_STAGING_DIR)/etc/profile; \
-    echo "plclocation=garagelab" >> $(ROOTFS_STAGING_DIR)/etc/profile; \
-    echo "plcname=demo1" >> $(ROOTFS_STAGING_DIR)/etc/profile; \
     
 
 #
